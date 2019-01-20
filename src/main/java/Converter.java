@@ -11,10 +11,22 @@ public class Converter {
     public String toText() throws Exception {
         Workbook wb = WorkBookUtil.open_workbook(this.fname);
         StringBuilder sb = new StringBuilder();
-        for (Sheet sheet: wb) {
-            sb.append(sheet.getSheetName());
-            sb.append("\n");
+        sb.append("[\n");
+        boolean isFirstSheet = true;
+        for (Sheet sheet : wb) {
+            if (!isFirstSheet) {
+                sb.append(",\n");
+            }
+            isFirstSheet = false;
+            sb.append("{ \"sheetName\":");
+            sb.append("\"");
+            sb.append(sheet.getSheetName().replace("\"", "\\\""));
+            sb.append("\"");
+            sb.append(",\"content\":[");
+            sb.append(WorkBookUtil.calc_sheet_text(sheet));
+            sb.append("]}");
         }
+        sb.append("]\n");
         WorkBookUtil.close_workbook(wb);
         return sb.toString();
     }
