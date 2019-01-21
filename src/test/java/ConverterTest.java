@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.FileOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ConverterTest {
 
@@ -17,7 +19,8 @@ public class ConverterTest {
 
     @Test
     public void toWorkbook() throws Exception {
-        String text = Converter.workbook2JsonString("src\\main\\resources\\z组合boss.xlsx");
+        Path path = Paths.get("src",  "main",  "resources", "z组合boss.xlsx");
+        String text = Converter.workbook2JsonString(path.toString());
         Workbook wb = Converter.jsonText2HSSFWorkBook(text);
         FileOutputStream fout = new FileOutputStream("组合.xls");
         wb.write(fout);
