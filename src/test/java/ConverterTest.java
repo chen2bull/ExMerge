@@ -19,10 +19,11 @@ public class ConverterTest {
 
     @Test
     public void toWorkbook() throws Exception {
-        Path path = Paths.get("src",  "main",  "resources", "z组合boss.xlsx");
+        Path path = Paths.get("src",  "test",  "resources", "z组合boss.xlsx");
         String text = Converter.workbook2JsonString(path.toString());
-        Workbook wb = Converter.jsonText2HSSFWorkBook(text);
-        FileOutputStream fout = new FileOutputStream("组合.xls");
-        wb.write(fout);
+        System.out.println(text);
+//        Workbook wb = Converter.jsonText2HSSFWorkBook(text);
+//        FileOutputStream fout = new FileOutputStream("组合.xls");
+//        wb.write(fout);
     }
 }
