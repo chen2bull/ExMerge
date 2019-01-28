@@ -17,8 +17,10 @@ public class CellBean {
     CellBean(CellType cellType, String cellString, Comment comment, CellStyle cellStyle) {
         this.t = cellType;
         this.v = cellString;
-        if (!StyleBean.isDefaultStyle(cellStyle)) {
-            this.s = new StyleBean(cellStyle);
+        short b = cellStyle.getFillBackgroundColor();
+        short f = cellStyle.getFillForegroundColor();
+        if (!StyleBean.isDefaultStyle(f, b)) {
+            this.s = new StyleBean(f, b);
         }
         if (comment != null) {
             this.c = new CommentBean(comment);
@@ -108,15 +110,13 @@ class StyleBean {
     private short f; // 前景色
     private short b; // 后景色
 
-    static boolean isDefaultStyle(CellStyle cellStyle) {
-        short b = cellStyle.getFillBackgroundColor();
-        short f = cellStyle.getFillForegroundColor();
+    static boolean isDefaultStyle(short b, short f) {
         return b == 64 && f == 64;
     }
 
-    StyleBean(CellStyle cellStyle) {
-        this.b = cellStyle.getFillBackgroundColor();
-        this.f = cellStyle.getFillForegroundColor();
+    StyleBean(short b, short f) {
+        this.b = b;
+        this.f = f;
     }
 
     public short getF() {
