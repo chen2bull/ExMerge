@@ -1,4 +1,4 @@
-package exMerge;
+package exMerge.bean;
 
 class StyleBean {
     private short f; // 前景色
@@ -8,7 +8,7 @@ class StyleBean {
         return b == 64 && f == 64;
     }
 
-    StyleBean(short b, short f) {
+    public StyleBean(short b, short f) {
         this.b = b;
         this.f = f;
     }

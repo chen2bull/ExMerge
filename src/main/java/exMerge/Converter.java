@@ -1,4 +1,8 @@
+package exMerge;
+
 import com.fasterxml.jackson.core.type.TypeReference;
+import exMerge.bean.CellBean;
+import exMerge.bean.SheetBean;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -83,7 +87,7 @@ public class Converter {
     public static HSSFWorkbook jsonText2HSSFWorkBook(String jsonText) throws Exception {
         HSSFWorkbook wb = new HSSFWorkbook();
         ObjectMapper mapper = new ObjectMapper();
-//         List<SheetBean> sheetBeans = mapper.readValue(jsonText, List.class); // 这种用法是错的
+//         List<exMerge.bean.SheetBean> sheetBeans = mapper.readValue(jsonText, List.class); // 这种用法是错的
         ArrayList<SheetBean> sheetBeans = mapper.readValue(jsonText, new TypeReference<ArrayList<SheetBean>>(){});
         System.out.println(sheetBeans);
         System.out.println(sheetBeans.getClass());

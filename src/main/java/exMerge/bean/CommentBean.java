@@ -1,4 +1,4 @@
-package exMerge;
+package exMerge.bean;
 
 import org.apache.poi.ss.usermodel.Comment;
 
@@ -8,7 +8,7 @@ class CommentBean {
     private String commentString; // Comment String
     private String author; // 作者
 
-    CommentBean(Comment comment) {
+    public CommentBean(Comment comment) {
         this.rowIndex = comment.getRow();
         this.colIndex = comment.getColumn();
         this.commentString = comment.getString().getString();

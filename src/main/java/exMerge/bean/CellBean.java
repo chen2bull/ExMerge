@@ -1,4 +1,4 @@
-package exMerge;
+package exMerge.bean;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.poi.ss.usermodel.CellStyle;

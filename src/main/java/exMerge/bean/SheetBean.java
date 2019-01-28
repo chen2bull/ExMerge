@@ -1,4 +1,4 @@
-package exMerge;
+package exMerge.bean;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ public class SheetBean {
     private String sheetName;
     private ArrayList<ArrayList<CellBean>> content;
 
-    SheetBean(String sheetName, ArrayList<ArrayList<CellBean>> content) {
+    public SheetBean(String sheetName, ArrayList<ArrayList<CellBean>> content) {
         this.sheetName = sheetName;
         this.content = content;
     }
