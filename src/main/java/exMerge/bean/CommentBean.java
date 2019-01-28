@@ -15,6 +15,10 @@ class CommentBean {
         this.author = comment.getAuthor();
     }
 
+    public CommentBean() {
+        super();
+    }
+
     public String getCommentString() {
         return commentString;
     }

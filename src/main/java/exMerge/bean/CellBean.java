@@ -16,17 +16,20 @@ public class CellBean {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private StyleBean s; // 格式
 
-    CellBean(CellType cellType, String cellString, Comment comment, CellStyle cellStyle) {
+    public CellBean(CellType cellType, String cellString, Comment comment, CellStyle cellStyle) {
         this.t = cellType;
         this.v = cellString;
-        short b = cellStyle.getFillBackgroundColor();
-        short f = cellStyle.getFillForegroundColor();
-        if (!StyleBean.isDefaultStyle(f, b)) {
-            this.s = new StyleBean(f, b);
+        StyleBean s = new StyleBean(cellStyle.getFillBackgroundColor(), cellStyle.getFillForegroundColor());
+        if (!StyleBean.isDefaultStyle(s)) {
+            this.s = s;
         }
         if (comment != null) {
             this.c = new CommentBean(comment);
         }
+    }
+
+    public CellBean() {
+        super();
     }
 
     public CellType getT() {
