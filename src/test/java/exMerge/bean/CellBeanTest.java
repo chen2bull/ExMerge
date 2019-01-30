@@ -15,31 +15,34 @@ public class CellBeanTest {
         assertEquals(cellBean.getV(), "地底人");
 
         //
-        CellBean styleBean2 = objectMapper.readValue("{" +
+        CellBean cellBean1 = objectMapper.readValue("{" +
                 "\"t\":\"STRING\"," +
                 "\"v\":\"地底人\", " +
                 "\"s\":{\"f\":60,\"b\":50}}",
                 CellBean.class);
-        CommentBean commentBean = styleBean2.getC();
+        CommentBean commentBean = cellBean1.getC();
         assertNull(commentBean);
-        assertEquals(styleBean2.getT(), CellType.STRING);
-        assertEquals(styleBean2.getV(), "地底人");
-        StyleBean styleBean = styleBean2.getS();
+        assertEquals(cellBean1.getT(), CellType.STRING);
+        assertEquals(cellBean1.getV(), "地底人");
+        StyleBean styleBean = cellBean1.getS();
         assertEquals(styleBean.getF(), 60);
         assertEquals(styleBean.getB(), 50);
 
 
         CellBean cellBean3 = objectMapper.readValue("{\"t\":\"STRING\"," +
                 "\"v\":\"地底人\", " +
-                "\"s\": {\"colIndex\": 100,\n" +
+                "\"c\": {\"colIndex\": 100,\n" +
                 "\"rowIndex\": 200,\n" +
                 "\"commentString\": \"You can pass\",\n" +
                 "\"author\": \"chenmj\"\n" +
                 "}}", CellBean.class);
         assertEquals(cellBean3.getT(), CellType.STRING);
         assertEquals(cellBean3.getV(), "地底人");
-
-
+        CommentBean commentBean1 = cellBean3.getC();
+        assertEquals(commentBean1.getAuthor(), "chenmj");
+        assertEquals(commentBean1.getCommentString(), "You can pass");
+        assertEquals(commentBean1.getColIndex(), 100);
+        assertEquals(commentBean1.getRowIndex(), 200);
     }
 
 }
