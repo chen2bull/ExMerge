@@ -10,6 +10,9 @@ public class SheetBean {
         this.sheetName = sheetName;
         this.content = content;
     }
+    public SheetBean() {
+        super();
+    }
 
     public String getSheetName() {
         return sheetName;

@@ -1,16 +1,15 @@
 package exMerge.bean;
 
 
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Workbook;
+
 public class StyleBean {
     private short f; // 前景色
     private short b; // 后景色
 
-    static boolean isDefaultStyle(short b, short f) {
-        return b == 64 && f == 64;
-    }
-
-    static boolean isDefaultStyle(StyleBean styleBean) {
-        return styleBean.getB() == 64 && styleBean.getF() == 64;
+    public StyleBean() {
+        super();
     }
 
     public StyleBean(short b, short f) {
@@ -18,8 +17,15 @@ public class StyleBean {
         this.f = f;
     }
 
-    public StyleBean() {
-        super();
+    public boolean isDefaultStyle() {
+        return getB() == 64 && getF() == 64;
+    }
+
+    public CellStyle createStyle(Workbook wb) {
+        CellStyle cellStyle = wb.createCellStyle();
+        cellStyle.setFillForegroundColor(this.getF());
+        cellStyle.setFillBackgroundColor(this.getB());
+        return cellStyle;
     }
 
     public short getF() {

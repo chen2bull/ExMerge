@@ -20,7 +20,7 @@ public class CellBean {
         this.t = cellType;
         this.v = cellString;
         StyleBean s = new StyleBean(cellStyle.getFillBackgroundColor(), cellStyle.getFillForegroundColor());
-        if (!StyleBean.isDefaultStyle(s)) {
+        if (!s.isDefaultStyle()) {
             this.s = s;
         }
         if (comment != null) {
