@@ -24,6 +24,7 @@ public class ConverterTest {
         Path path = Paths.get("src",  "test",  "resources", "z组合boss.xlsx");
         Xlsx2JsonParser converter = new Xlsx2JsonParser(path.toString());
         String text = converter.toJsonString();
+        System.out.println(text);
         Json2XlsParser jParser = new Json2XlsParser(text);
         Workbook wb = jParser.toExcel();
         FileOutputStream fout = new FileOutputStream("new组合.xls");

@@ -12,9 +12,9 @@ public class StyleBean {
         super();
     }
 
-    public StyleBean(short b, short f) {
-        this.b = b;
-        this.f = f;
+    public StyleBean(CellStyle cellStyle) {
+        this.b = cellStyle.getFillBackgroundColor();
+        this.f = cellStyle.getFillForegroundColor();
     }
 
     public boolean isDefaultStyle() {

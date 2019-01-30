@@ -1,6 +1,7 @@
 package exMerge.bean;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Comment;
@@ -16,13 +17,16 @@ public class CellBean {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private StyleBean s; // 格式
 
-    public CellBean(CellType cellType, String cellString, Comment comment, CellStyle cellStyle) {
-        this.t = cellType;
-        this.v = cellString;
-        StyleBean s = new StyleBean(cellStyle.getFillBackgroundColor(), cellStyle.getFillForegroundColor());
+    public CellBean(Cell cell) {
+        this.t = cell.getCellType();
+        this.v = cell.toString();
+
+        CellStyle cellStyle = cell.getCellStyle();
+        StyleBean s = new StyleBean(cellStyle);
         if (!s.isDefaultStyle()) {
             this.s = s;
         }
+        Comment comment = cell.getCellComment();
         if (comment != null) {
             this.c = new CommentBean(comment);
         }
