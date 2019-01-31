@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,7 +28,7 @@ public class ConverterTest {
         System.out.println(text);
         Json2XlsParser jParser = new Json2XlsParser(text);
         Workbook wb = jParser.toExcel();
-        FileOutputStream fout = new FileOutputStream("new组合.xls");
+        FileOutputStream fout = new FileOutputStream("temp" + File.separator + "new组合.xls");
         wb.write(fout);
         wb.close();
         fout.close();

@@ -17,8 +17,8 @@ public class StyleBean {
         this.f = cellStyle.getFillForegroundColor();
     }
 
-    public boolean isDefaultStyle() {
-        return getB() == 64 && getF() == 64;
+    public static boolean isDefaultStyle(StyleBean styleBean) {
+        return styleBean.getB() == 64 && styleBean.getF() == 64;
     }
 
     public CellStyle createStyle(Workbook wb) {

@@ -16,7 +16,7 @@ abstract class Json2ExcelParser {
         cell.setCellValue(cellBean.getV());
         StyleBean styleBean = cellBean.getS();
         if (styleBean != null) {
-            if (!styleBean.isDefaultStyle()) {
+            if (!StyleBean.isDefaultStyle(styleBean)) {
                 cell.setCellStyle(styleBean.createStyle(wb));
             }
         }
