@@ -34,10 +34,19 @@ abstract class Json2ExcelParser {
             Sheet s = wb.createSheet(sheetB.getSheetName());
             Drawing drawing = s.createDrawingPatriarch();
             ArrayList<ArrayList<CellBean>> content = sheetB.getContent();
-            int rowLength = content.size();
-            for (int i = 0; i < rowLength; i++) {
+            SheetMetaBean metaBean = sheetB.getMeta();
+            ArrayList<Short> heights = metaBean.getHeights();
+            int heightsLen = heights.size();
+            ArrayList<Integer> widths = metaBean.getWidths();
+            for (int i = 0; i < widths.size(); i++) {
+                s.setColumnWidth(i, widths.get(i));
+            }
+            for (int i = 0; i < content.size(); i++) {
                 List<CellBean> rowBean = content.get(i);
                 Row row = s.createRow(i);
+                if(i < heightsLen) {
+                    row.setHeight(heights.get(i));
+                }
                 int colLength = rowBean.size();
                 for (int j = 0; j < colLength; j++) {
                     Cell cell = row.createCell(j);

@@ -2,7 +2,6 @@ package exMerge;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import exMerge.bean.CellBean;
-import exMerge.bean.RowBean;
 import exMerge.bean.SheetMetaBean;
 import org.apache.poi.ss.usermodel.*;
 
@@ -18,11 +17,7 @@ abstract class Excel2JsonParser {
                 sb.append(",");
             }
             isFirstRow = false;
-            sb.append("{\n");
-            RowBean rowBean = new RowBean(row);
-            sb.append(mapper.writeValueAsString(rowBean));
-
-
+            sb.append("[\n");
             boolean isFirstCell = true;
             int colNum = row.getLastCellNum();
             for (int c = 0; c < colNum; c++) {
@@ -34,7 +29,7 @@ abstract class Excel2JsonParser {
                 CellBean cellBean = new CellBean(cell);
                 sb.append(mapper.writeValueAsString(cellBean));
             }
-            sb.append("}\n");
+            sb.append("]\n");
         }
         return sb.toString();
     }

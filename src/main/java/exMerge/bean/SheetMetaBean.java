@@ -6,43 +6,45 @@ import org.apache.poi.ss.usermodel.Sheet;
 import java.util.ArrayList;
 
 public class SheetMetaBean {
-    private ArrayList<Short> rowHeightList;
-    private ArrayList<Short> colWidthList;
+    private ArrayList<Short> heights;
+    private ArrayList<Integer> widths;
 
     public SheetMetaBean()  {
         super();
     }
 
     public SheetMetaBean(Sheet sheet) {
-        this.rowHeightList = new ArrayList<>();
-        this.colWidthList = new ArrayList<>();
+        this.heights = new ArrayList<>();
+        this.widths = new ArrayList<>();
 
         int rowNum = sheet.getLastRowNum();
-        Row rowHasMaxColumn = sheet.getRow(0);
+
+        int maxCol = 0;
         for (int i = 0; i < rowNum; i++) {
             Row row = sheet.getRow(i);
-            this.rowHeightList.add(row.getHeight());
-            if(rowHasMaxColumn.getLastCellNum() < row.getLastCellNum()) {
-
+            this.heights.add(row.getHeight());
+            if(row.getLastCellNum() > maxCol) {
+                maxCol = row.getLastCellNum();
             }
         }
-
-
+        for (int i = 0; i < maxCol; i++) {
+            this.widths.add(sheet.getColumnWidth(i));
+        }
     }
 
-    public ArrayList<Short> getColWidthList() {
-        return colWidthList;
+    public ArrayList<Short> getHeights() {
+        return heights;
     }
 
-    public void setColWidthList(ArrayList<Short> colWidthList) {
-        this.colWidthList = colWidthList;
+    public void setHeights(ArrayList<Short> heights) {
+        this.heights = heights;
     }
 
-    public ArrayList<Short> getRowHeightList() {
-        return rowHeightList;
+    public ArrayList<Integer> getWidths() {
+        return widths;
     }
 
-    public void setRowHeightList(ArrayList<Short> rowHeightList) {
-        this.rowHeightList = rowHeightList;
+    public void setWidths(ArrayList<Integer> widths) {
+        this.widths = widths;
     }
 }

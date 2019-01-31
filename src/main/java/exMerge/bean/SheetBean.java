@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class SheetBean {
     private String sheetName;
+    private SheetMetaBean meta;
     private ArrayList<ArrayList<CellBean>> content;
 
     public SheetBean(String sheetName, ArrayList<ArrayList<CellBean>> content) {
@@ -28,5 +29,13 @@ public class SheetBean {
 
     public void setContent(ArrayList<ArrayList<CellBean>> content) {
         this.content = content;
+    }
+
+    public SheetMetaBean getMeta() {
+        return meta;
+    }
+
+    public void setMeta(SheetMetaBean meta) {
+        this.meta = meta;
     }
 }
