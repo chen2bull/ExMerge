@@ -36,7 +36,6 @@ abstract class Json2ExcelParser {
             ArrayList<ArrayList<CellBean>> content = sheetB.getContent();
             SheetMetaBean metaBean = sheetB.getMeta();
             ArrayList<Short> heights = metaBean.getHeights();
-            int heightsLen = heights.size();
             ArrayList<Integer> widths = metaBean.getWidths();
             for (int i = 0; i < widths.size(); i++) {
                 s.setColumnWidth(i, widths.get(i));
@@ -44,7 +43,7 @@ abstract class Json2ExcelParser {
             for (int i = 0; i < content.size(); i++) {
                 List<CellBean> rowBean = content.get(i);
                 Row row = s.createRow(i);
-                if(i < heightsLen) {
+                if(i < heights.size()) {
                     row.setHeight(heights.get(i));
                 }
                 int colLength = rowBean.size();

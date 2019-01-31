@@ -1,10 +1,7 @@
 package exMerge.bean;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Comment;
+import org.apache.poi.ss.usermodel.*;
 
 /**
  * 很骚的命名,不是数学博士的话，一般都看不懂
@@ -17,9 +14,9 @@ public class CellBean {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private StyleBean s; // 格式
 
-    public CellBean(Cell cell) {
+    public CellBean(Cell cell, DataFormatter formatter) {
         this.t = cell.getCellType();
-        this.v = cell.toString();
+        this.v = formatter.formatCellValue(cell);
 
         CellStyle cellStyle = cell.getCellStyle();
         StyleBean s = new StyleBean(cellStyle);

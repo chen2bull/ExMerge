@@ -9,6 +9,7 @@ abstract class Excel2JsonParser {
     private static String calcSheetText(Sheet sheet) throws Exception {
         StringBuilder sb = new StringBuilder();
         ObjectMapper mapper = new ObjectMapper();
+        DataFormatter formatter = new DataFormatter();
         int rowNum = sheet.getLastRowNum();
         boolean isFirstRow = true;
         for (int r = 0; r < rowNum; r++) {
@@ -26,7 +27,7 @@ abstract class Excel2JsonParser {
                     sb.append(",\n");
                 }
                 isFirstCell = false;
-                CellBean cellBean = new CellBean(cell);
+                CellBean cellBean = new CellBean(cell, formatter);
                 sb.append(mapper.writeValueAsString(cellBean));
             }
             sb.append("]\n");
