@@ -1,5 +1,6 @@
 package exMerge;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import exMerge.bean.*;
@@ -11,13 +12,20 @@ import java.util.List;
 abstract class Json2ExcelParser {
     String jsonText;
 
-    private void setCellByBean(Workbook wb, Cell cell, CellBean cellBean, Drawing drawing) {
+    private void setCellByBean(Workbook wb, StylePool stylePool, Cell cell, CellBean cellBean, Drawing drawing) throws JsonProcessingException {
         cell.setCellType(cellBean.getT());
         cell.setCellValue(cellBean.getV());
         StyleBean styleBean = cellBean.getS();
         if (styleBean != null) {
             if (!StyleBean.isDefaultStyle(styleBean)) {
-                cell.setCellStyle(styleBean.createStyle(wb));
+                String styleString = stylePool.calcStyleString(styleBean);
+                if (stylePool.isExist(styleString)) {
+                    cell.setCellStyle(stylePool.getStyle(styleString));
+                } else {
+                    CellStyle style = styleBean.createStyle(wb);
+                    stylePool.updateStyle(styleString, style);
+                    cell.setCellStyle(style);
+                }
             }
         }
         CommentBean commentBean = cellBean.getC();
@@ -33,6 +41,7 @@ abstract class Json2ExcelParser {
         for (SheetBean sheetB : sheetBeans) {
             Sheet s = wb.createSheet(sheetB.getSheetName());
             Drawing drawing = s.createDrawingPatriarch();
+            StylePool stylePool = new StylePool();
             ArrayList<ArrayList<CellBean>> content = sheetB.getContent();
             SheetMetaBean metaBean = sheetB.getMeta();
             ArrayList<Short> heights = metaBean.getHeights();
@@ -43,14 +52,14 @@ abstract class Json2ExcelParser {
             for (int i = 0; i < content.size(); i++) {
                 List<CellBean> rowBean = content.get(i);
                 Row row = s.createRow(i);
-                if(i < heights.size()) {
+                if (i < heights.size()) {
                     row.setHeight(heights.get(i));
                 }
                 int colLength = rowBean.size();
                 for (int j = 0; j < colLength; j++) {
                     Cell cell = row.createCell(j);
                     CellBean cellBean = rowBean.get(j);
-                    setCellByBean(wb, cell, cellBean, drawing);
+                    setCellByBean(wb, stylePool, cell, cellBean, drawing);
                 }
             }
 

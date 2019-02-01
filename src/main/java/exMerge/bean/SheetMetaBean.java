@@ -18,13 +18,19 @@ public class SheetMetaBean {
         this.widths = new ArrayList<>();
 
         int rowNum = sheet.getLastRowNum();
-
+        int startNum = sheet.getFirstRowNum();
         int maxCol = 0;
-        for (int i = 0; i < rowNum; i++) {
-            Row row = sheet.getRow(i);
-            this.heights.add(row.getHeight());
-            if(row.getLastCellNum() > maxCol) {
-                maxCol = row.getLastCellNum();
+        System.out.println("MaxRowNum:" + rowNum);
+        System.out.println("startNum:" + startNum);
+        for (int r = 0; r < rowNum; r++) {
+            Row row = sheet.getRow(r);
+            if(row != null) {
+                this.heights.add(row.getHeight());
+                if (row.getLastCellNum() > maxCol) {
+                    maxCol = row.getLastCellNum();
+                }
+            } else {
+                this.heights.add(sheet.getDefaultRowHeight());
             }
         }
         for (int i = 0; i < maxCol; i++) {

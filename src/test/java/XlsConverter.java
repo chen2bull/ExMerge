@@ -1,6 +1,5 @@
 import exMerge.Json2XlsParser;
 import exMerge.Xls2JsonParser;
-import exMerge.Xlsx2JsonParser;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.junit.Test;
 
@@ -21,8 +20,12 @@ public class XlsConverter {
         for (File file : listOfFiles) {
             if (file.isFile()) {
                 String baseName =  file.getName();
+                if (!baseName.endsWith(".xls")) {
+                    continue;
+                }
                 String outputName = pathName + baseName;
                 String fileName = file.getAbsoluteFile().toString();
+                System.out.println(fileName);
                 Xls2JsonParser parser = new Xls2JsonParser(fileName);
                 String text = parser.toJsonString();
                 Json2XlsParser jParser = new Json2XlsParser(text);
@@ -34,14 +37,5 @@ public class XlsConverter {
 
             }
         }
-//        Xlsx2JsonParser converter = new Xlsx2JsonParser();
-//        String text = converter.toJsonString();
-//        System.out.println(text);
-//        Json2XlsParser jParser = new Json2XlsParser(text);
-//        Workbook wb = jParser.toExcel();
-//        FileOutputStream fout = new FileOutputStream("new组合.xls");
-//        wb.write(fout);
-//        wb.close();
-//        fout.close();
     }
 }
