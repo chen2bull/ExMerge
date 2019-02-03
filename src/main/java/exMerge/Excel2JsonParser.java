@@ -5,15 +5,15 @@ import exMerge.bean.CellBean;
 import exMerge.bean.SheetMetaBean;
 import org.apache.poi.ss.usermodel.*;
 
+import java.util.ArrayList;
+
 abstract class Excel2JsonParser {
     private static String calcSheetText(Sheet sheet) throws Exception {
         StringBuilder sb = new StringBuilder();
         ObjectMapper mapper = new ObjectMapper();
         DataFormatter formatter = new DataFormatter();
-        int rowNum = sheet.getLastRowNum();
         boolean isFirstRow = true;
-        for (int r = 0; r < rowNum; r++) {
-            Row row = sheet.getRow(r);
+        for (Row row: sheet) {
             if (!isFirstRow) {
                 sb.append(",");
             }
@@ -24,20 +24,41 @@ abstract class Excel2JsonParser {
             }
             sb.append("[\n");
             boolean isFirstCell = true;
+            ArrayList<CellBean> cellBeans = new ArrayList<>();
             int colNum = row.getLastCellNum();
             for (int c = 0; c < colNum; c++) {
                 Cell cell = row.getCell(c, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                CellBean cellBean = new CellBean(cell, formatter);
+                cellBeans.add(cellBean);
+            }
+            if (isEmptyLine(cellBeans)) {
+                sb.append("]\n");
+                break;
+            }
+            for (CellBean cb: cellBeans) {
                 if (!isFirstCell) {
                     sb.append(",\n");
                 }
                 isFirstCell = false;
-                CellBean cellBean = new CellBean(cell, formatter);
-                sb.append(mapper.writeValueAsString(cellBean));
+                sb.append(mapper.writeValueAsString(cb));
             }
             sb.append("]\n");
         }
         return sb.toString();
     }
+
+    private static boolean isEmptyLine(ArrayList<CellBean> cellBeans) {
+        if (cellBeans.size() == 0) {
+            return true;
+        }
+        for (CellBean cb: cellBeans) {
+            if (cb.getT() != CellType.BLANK) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     String fileName;
 
     public abstract String toJsonString() throws Exception;
