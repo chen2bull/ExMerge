@@ -3,17 +3,50 @@ package exMerge;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import exMerge.bean.*;
 import org.apache.poi.ss.usermodel.*;
+import static org.apache.poi.ss.usermodel.CellType.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 abstract class Json2ExcelParser {
     String jsonText;
 
     private void setCellByBean(Workbook wb, StylePool stylePool, Cell cell, CellBean cellBean, Drawing drawing) throws JsonProcessingException {
-        cell.setCellType(cellBean.getT());
+        CellType cellType = cellBean.getT();
+        cell.setCellType(cellType);
+        switch (cellType) {
+            case STRING:
+                cell.setCellValue(cellBean.getV());
+                break;
+            case NUMERIC:
+                try{
+                    cell.setCellValue(Integer.parseInt(cellBean.getV()));
+                }catch(NumberFormatException e){
+                    //not int
+                }
+                try{
+                    cell.setCellValue(Float.parseFloat(cellBean.getV()));
+                }catch(NumberFormatException e){
+                    //not float
+                }
+                cell.setCellValue(Boolean.valueOf(cellBean.getV()));
+                break;
+            case BOOLEAN:
+                cell.setCellValue(Boolean.valueOf(cellBean.getV()));
+                break;
+            case FORMULA:
+                cell.setCellValue(cellBean.getV());
+                break;
+            case BLANK:
+                cell.setCellValue(cellBean.getV());
+                break;
+            default:
+                cell.setCellValue(cellBean.getV());
+        }
         cell.setCellValue(cellBean.getV());
         StyleBean styleBean = cellBean.getS();
         if (styleBean != null) {
