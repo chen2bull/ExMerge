@@ -1,6 +1,7 @@
 package exMerge;
 
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Json2XlsxParser extends Json2ExcelParser {
@@ -9,8 +10,11 @@ public class Json2XlsxParser extends Json2ExcelParser {
     }
 
     public Workbook toExcel() throws Exception {
-        Workbook wb = new XSSFWorkbook();
-        addInfoFromJson(wb);
+        XSSFWorkbook wb = new XSSFWorkbook();
+        this.wb = wb;
+        this.evaluator = new XSSFFormulaEvaluator(wb);
+        addInfoFromJson();
+        this.evaluator.evaluateAll();
         return wb;
     }
 }

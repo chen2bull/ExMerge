@@ -1,12 +1,10 @@
 package exMerge;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import exMerge.bean.*;
 import org.apache.poi.ss.usermodel.*;
-import static org.apache.poi.ss.usermodel.CellType.*;
+import org.apache.poi.ss.util.CellReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +12,10 @@ import java.util.List;
 
 abstract class Json2ExcelParser {
     String jsonText;
+    Workbook wb;
+    FormulaEvaluator evaluator;
 
-    private void setCellByBean(Workbook wb, StylePool stylePool, Cell cell, CellBean cellBean, Drawing drawing) throws JsonProcessingException {
+    private void setCellByBean(StylePool stylePool, Cell cell, CellBean cellBean, Drawing drawing) throws Exception {
         CellType cellType = cellBean.getT();
         cell.setCellType(cellType);
         switch (cellType) {
@@ -23,14 +23,14 @@ abstract class Json2ExcelParser {
                 cell.setCellValue(cellBean.getV());
                 break;
             case NUMERIC:
-                try{
+                try {
                     cell.setCellValue(Integer.parseInt(cellBean.getV()));
-                }catch(NumberFormatException e){
+                } catch (NumberFormatException e) {
                     //not int
                 }
-                try{
+                try {
                     cell.setCellValue(Float.parseFloat(cellBean.getV()));
-                }catch(NumberFormatException e){
+                } catch (NumberFormatException e) {
                     //not float
                 }
                 cell.setCellValue(Boolean.valueOf(cellBean.getV()));
@@ -39,7 +39,12 @@ abstract class Json2ExcelParser {
                 cell.setCellValue(Boolean.valueOf(cellBean.getV()));
                 break;
             case FORMULA:
-                cell.setCellValue(cellBean.getV());
+                try {
+
+                    cell.setCellFormula(cellBean.getV());
+                } catch (Exception e) {
+                    throw new Exception("INVALID formula: " + cellBean.getV(), e);
+                }
                 break;
             case BLANK:
                 cell.setCellValue(cellBean.getV());
@@ -67,7 +72,7 @@ abstract class Json2ExcelParser {
         }
     }
 
-    void addInfoFromJson(Workbook wb) throws java.io.IOException {
+    void addInfoFromJson() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         ArrayList<SheetBean> sheetBeans = mapper.readValue(jsonText, new TypeReference<ArrayList<SheetBean>>() {
         });
@@ -82,18 +87,28 @@ abstract class Json2ExcelParser {
             for (int i = 0; i < widths.size(); i++) {
                 s.setColumnWidth(i, widths.get(i));
             }
-            for (int i = 0; i < content.size(); i++) {
-                List<CellBean> rowBean = content.get(i);
-                Row row = s.createRow(i);
-                if (i < heights.size()) {
-                    row.setHeight(heights.get(i));
+            try {
+
+                for (int i = 0; i < content.size(); i++) {
+                    List<CellBean> rowBean = content.get(i);
+                    Row row = s.createRow(i);
+                    if (i < heights.size()) {
+                        row.setHeight(heights.get(i));
+                    }
+                    int colLength = rowBean.size();
+                    for (int j = 0; j < colLength; j++) {
+                        try {
+                            Cell cell = row.createCell(j);
+                            CellBean cellBean = rowBean.get(j);
+                            setCellByBean(stylePool, cell, cellBean, drawing);
+                        } catch (Exception e) {
+                            throw new Exception("Error in row:" + (i + 1) + " col:" +
+                                    CellReference.convertNumToColString(j) + "\n", e);
+                        }
+                    }
                 }
-                int colLength = rowBean.size();
-                for (int j = 0; j < colLength; j++) {
-                    Cell cell = row.createCell(j);
-                    CellBean cellBean = rowBean.get(j);
-                    setCellByBean(wb, stylePool, cell, cellBean, drawing);
-                }
+            } catch (Exception e) {
+                throw new Exception(sheetB.getSheetName() + "Error in sheet" + sheetB.getSheetName(), e);
             }
 
         }

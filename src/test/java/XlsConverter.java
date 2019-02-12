@@ -23,6 +23,7 @@ public class XlsConverter {
                 if (!baseName.endsWith(".xls")) {
                     continue;
                 }
+//                String outputName = pathName + baseName.replace(".xls", ".xlsx");
                 String outputName = pathName + baseName;
                 String fileName = file.getAbsoluteFile().toString();
                 System.out.println(fileName);
@@ -32,6 +33,7 @@ public class XlsConverter {
                 Workbook wb = jParser.toExcel();
                 FileOutputStream fout = new FileOutputStream(outputName);
                 wb.write(fout);
+
                 fout.close();
                 wb.close();
 

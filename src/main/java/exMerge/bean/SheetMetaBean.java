@@ -18,10 +18,7 @@ public class SheetMetaBean {
         this.widths = new ArrayList<>();
 
         int rowNum = sheet.getLastRowNum();
-        int startNum = sheet.getFirstRowNum();
         int maxCol = 0;
-        System.out.println("MaxRowNum:" + rowNum);
-        System.out.println("startNum:" + startNum);
         for (int r = 0; r < rowNum; r++) {
             Row row = sheet.getRow(r);
             if(row != null) {

@@ -11,8 +11,11 @@ public class Json2XlsParser extends Json2ExcelParser {
     }
 
     public Workbook toExcel() throws Exception {
-        Workbook wb = new HSSFWorkbook();
-        addInfoFromJson(wb);
+        HSSFWorkbook wb = new HSSFWorkbook();
+        this.wb = wb;
+        this.evaluator = wb.getCreationHelper().createFormulaEvaluator();
+        addInfoFromJson();
+        this.evaluator.evaluateAll();
         return wb;
     }
 

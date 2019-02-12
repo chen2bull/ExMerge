@@ -77,7 +77,6 @@ abstract class Excel2JsonParser {
             sb.append("\"");
             sb.append(sheet.getSheetName().replace("\"", "\\\""));
             sb.append("\"");
-            System.out.println("sheetName:" + sheet.getSheetName());
             SheetMetaBean sheetMetaBean = new SheetMetaBean(sheet);
             sb.append(",\n\"meta\":");
             sb.append(mapper.writeValueAsString(sheetMetaBean));
