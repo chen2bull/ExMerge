@@ -40,8 +40,8 @@ abstract class Json2ExcelParser {
                 break;
             case FORMULA:
                 try {
-
                     cell.setCellFormula(cellBean.getV());
+                    this.evaluator.evaluate(cell);
                 } catch (Exception e) {
                     throw new Exception("INVALID formula: " + cellBean.getV(), e);
                 }
@@ -52,7 +52,6 @@ abstract class Json2ExcelParser {
             default:
                 cell.setCellValue(cellBean.getV());
         }
-        cell.setCellValue(cellBean.getV());
         StyleBean styleBean = cellBean.getS();
         if (styleBean != null) {
             if (!StyleBean.isDefaultStyle(styleBean)) {

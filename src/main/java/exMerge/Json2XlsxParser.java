@@ -14,7 +14,6 @@ public class Json2XlsxParser extends Json2ExcelParser {
         this.wb = wb;
         this.evaluator = new XSSFFormulaEvaluator(wb);
         addInfoFromJson();
-        this.evaluator.evaluateAll();
         return wb;
     }
 }

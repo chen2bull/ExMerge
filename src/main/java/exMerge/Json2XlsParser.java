@@ -15,7 +15,6 @@ public class Json2XlsParser extends Json2ExcelParser {
         this.wb = wb;
         this.evaluator = wb.getCreationHelper().createFormulaEvaluator();
         addInfoFromJson();
-        this.evaluator.evaluateAll();
         return wb;
     }
 
