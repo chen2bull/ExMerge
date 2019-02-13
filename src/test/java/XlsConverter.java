@@ -33,6 +33,7 @@ public class XlsConverter {
                 String fileName = file.getAbsoluteFile().toString();
                 System.out.println(fileName);
                 Xls2JsonParser parser = new Xls2JsonParser(fileName);
+                parser.setUseFormulaCached(true);
                 String text = parser.toJsonString();
                 Json2XlsParser jParser = new Json2XlsParser(text);
                 Workbook wb = jParser.toExcel();

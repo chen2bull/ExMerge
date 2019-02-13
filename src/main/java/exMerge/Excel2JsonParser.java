@@ -8,7 +8,7 @@ import org.apache.poi.ss.usermodel.*;
 import java.util.ArrayList;
 
 abstract class Excel2JsonParser {
-    private static String calcSheetText(Sheet sheet) throws Exception {
+    private String calcSheetText(Sheet sheet) throws Exception {
         StringBuilder sb = new StringBuilder();
         ObjectMapper mapper = new ObjectMapper();
         DataFormatter formatter = new DataFormatter();
@@ -28,7 +28,7 @@ abstract class Excel2JsonParser {
             int colNum = row.getLastCellNum();
             for (int c = 0; c < colNum; c++) {
                 Cell cell = row.getCell(c, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                CellBean cellBean = new CellBean(cell, formatter);
+                CellBean cellBean = new CellBean(cell, formatter, this.useFormulaCached);
                 cellBeans.add(cellBean);
             }
             if (isEmptyLine(cellBeans)) {
@@ -60,6 +60,11 @@ abstract class Excel2JsonParser {
     }
 
     String fileName;
+    private boolean useFormulaCached;
+
+    public void setUseFormulaCached(boolean useFormulaCached) {
+        this.useFormulaCached = useFormulaCached;
+    }
 
     public abstract String toJsonString() throws Exception;
 

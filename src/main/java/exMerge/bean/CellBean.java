@@ -16,9 +16,18 @@ public class CellBean {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private StyleBean s; // 格式
 
-    public CellBean(Cell cell, DataFormatter formatter) {
+    public CellBean(Cell cell, DataFormatter formatter, boolean useFormulaCached) {
         this.t = cell.getCellType();
         this.v = formatter.formatCellValue(cell);
+        if (useFormulaCached && this.t == FORMULA) {
+            if (cell.getCachedFormulaResultType() == NUMERIC) {
+                this.v = String.valueOf(cell.getNumericCellValue());
+                this.t = NUMERIC;
+            } else if (cell.getCachedFormulaResultType() == STRING) {
+                this.v = cell.getStringCellValue();
+                this.t = STRING;
+            }
+        }
 
         CellStyle cellStyle = cell.getCellStyle();
         StyleBean s = new StyleBean(cellStyle);
@@ -29,13 +38,6 @@ public class CellBean {
         if (comment != null) {
             this.c = new CommentBean(comment);
         }
-//        if (this.t == FORMULA) {
-//            if (cell.getCachedFormulaResultType() == NUMERIC) {
-//
-//            } else if (cell.getCachedFormulaResultType() == STRING) {
-//                this.f = new FormulaResultBean(STRING, cell.getCellFormula())
-//            }
-//        }
     }
 
     public CellBean() {
