@@ -14,6 +14,7 @@ abstract class Json2ExcelParser {
     String jsonText;
     Workbook wb;
     FormulaEvaluator evaluator;
+    ArrayList<Cell> evalCells;  // 收集所有需要重算的cell，最后再算（formula里有可能用到后面才设置的数值）
 
     private void setCellByBean(StylePool stylePool, Cell cell, CellBean cellBean, Drawing drawing) throws Exception {
         CellType cellType = cellBean.getT();
@@ -33,7 +34,7 @@ abstract class Json2ExcelParser {
                 } catch (NumberFormatException e) {
                     //not float
                 }
-                cell.setCellValue(Boolean.valueOf(cellBean.getV()));
+                cell.setCellValue(cellBean.getV());
                 break;
             case BOOLEAN:
                 cell.setCellValue(Boolean.valueOf(cellBean.getV()));
@@ -41,7 +42,7 @@ abstract class Json2ExcelParser {
             case FORMULA:
                 try {
                     cell.setCellFormula(cellBean.getV());
-                    this.evaluator.evaluate(cell);
+                    evalCells.add(cell);
                 } catch (Exception e) {
                     throw new Exception("INVALID formula: " + cellBean.getV(), e);
                 }
