@@ -25,16 +25,16 @@ public class XlsMerger {
         String theirsText = new Xls2JsonParser(theirs, true).toJsonString();
         String mineText = new Xls2JsonParser(mine, true).toJsonString();
         try {
-            LinkedList<diff_match_patch.Patch> minePatchs = dmp.patch_make(baseText, mineText);
-            LinkedList<diff_match_patch.Patch> theirsPatchs = dmp.patch_make(baseText, theirsText);
+            LinkedList<diff_match_patch.Patch> minePatches = dmp.patch_make(baseText, mineText);
+            LinkedList<diff_match_patch.Patch> theirsPatches = dmp.patch_make(baseText, theirsText);
 
-            System.out.println(minePatchs);
-            System.out.println(theirsPatchs);
-            Object[] results = dmp.patch_apply(minePatchs, baseText);
+            System.out.println(minePatches);
+            System.out.println(theirsPatches);
+            Object[] results = dmp.patch_apply(minePatches, baseText);
             String resultText = (String) results[0];
             boolean[] resultBool = (boolean[]) results[1];
             System.out.println(Arrays.toString(resultBool));
-            results = dmp.patch_apply(theirsPatchs, resultText);
+            results = dmp.patch_apply(theirsPatches, resultText);
             resultText = (String) results[0];
             outputTextFile(merged+"_step1", resultText);
             resultBool = (boolean[]) results[1];
