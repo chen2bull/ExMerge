@@ -42,7 +42,7 @@ abstract class Excel2JsonParser {
                 isFirstCell = false;
                 sb.append(mapper.writeValueAsString(cb));
             }
-            sb.append("]\n");
+            sb.append("\n]\n");
         }
         return sb.toString();
     }
@@ -84,7 +84,7 @@ abstract class Excel2JsonParser {
             sb.append("\"");
             SheetMetaBean sheetMetaBean = new SheetMetaBean(sheet);
             sb.append(",\n\"meta\":");
-            sb.append(mapper.writeValueAsString(sheetMetaBean));
+            sb.append(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(sheetMetaBean));
             sb.append(",\n\"content\":[");
             sb.append(calcSheetText(sheet));
             sb.append("]}");

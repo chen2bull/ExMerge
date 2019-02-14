@@ -21,11 +21,20 @@ public class CellBean {
         this.v = formatter.formatCellValue(cell);
         if (useFormulaCached && this.t == FORMULA) {
             if (cell.getCachedFormulaResultType() == NUMERIC) {
-                this.v = String.valueOf(cell.getNumericCellValue());
+                double result = cell.getNumericCellValue();
+                int resultFloor = (int) Math.floor(result); // after rounding, there will not be any fractional parts
+                if ((result == Math.floor(result)) && !Double.isInfinite(result)) { // integer
+                    this.v = String.valueOf(resultFloor);
+                } else {
+                    this.v = String.valueOf(result);
+                }
                 this.t = NUMERIC;
             } else if (cell.getCachedFormulaResultType() == STRING) {
                 this.v = cell.getStringCellValue();
                 this.t = STRING;
+            } else if (cell.getCachedFormulaResultType() == BLANK) {
+                this.v = "";
+                this.t = BLANK;
             }
         }
 

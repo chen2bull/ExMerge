@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 
 public class XlsConverter {
 
@@ -21,7 +22,7 @@ public class XlsConverter {
         if (listOfFiles == null) {
             throw new Exception("not working!");
         }
-        System.setProperty("org.apache.poi.util.POILogger", "org.apache.poi.util.CommonsLogger" );
+//      System.setProperty("org.apache.poi.util.POILogger", "org.apache.poi.util.CommonsLogger" );
         for (File file : listOfFiles) {
             if (file.isFile()) {
                 String baseName =  file.getName();
@@ -32,24 +33,19 @@ public class XlsConverter {
                 String outputName = pathName + baseName;
                 String fileName = file.getAbsoluteFile().toString();
                 System.out.println(fileName);
-                Xls2JsonParser parser = new Xls2JsonParser(fileName);
-                parser.setUseFormulaCached(true);
+                Xls2JsonParser parser = new Xls2JsonParser(fileName, true);
                 String text = parser.toJsonString();
                 Json2XlsParser jParser = new Json2XlsParser(text);
                 Workbook wb = jParser.toExcel();
                 FileOutputStream fout = new FileOutputStream(outputName);
                 wb.write(fout);
-
                 fout.close();
                 wb.close();
-//                FileInputStream fin = new FileInputStream(outputName);
-//                HSSFWorkbook wb1 = new HSSFWorkbook(fin);
-//                FormulaEvaluator evaluator = wb1.getCreationHelper().createFormulaEvaluator();
-//                evaluator.evaluateAll();
-//                fin.close();
-//                FileOutputStream fout2 = new FileOutputStream(outputName);
-//                wb1.write(fout2);
-//                wb1.close();
+
+                String textFile = pathName + baseName.replace(".xls", ".json");
+                FileWriter fileWriter = new FileWriter(textFile);
+                fileWriter.write(text);
+                fileWriter.close();
             }
         }
     }

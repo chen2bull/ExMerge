@@ -6,8 +6,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import java.io.FileInputStream;
 
 public class Xls2JsonParser extends Excel2JsonParser {
-    public Xls2JsonParser(String fname) {
+    public Xls2JsonParser(String fname, boolean useFormulaCached) {
         this.fileName = fname;
+        this.setUseFormulaCached(useFormulaCached);
     }
 
     @Override

@@ -23,7 +23,7 @@ public class ConverterTest {
     @Test
     public void toWorkbook() throws Exception {
         Path path = Paths.get("src",  "test",  "resources", "z组合boss.xlsx");
-        Xlsx2JsonParser converter = new Xlsx2JsonParser(path.toString());
+        Xlsx2JsonParser converter = new Xlsx2JsonParser(path.toString(), true);
         String text = converter.toJsonString();
         System.out.println(text);
         Json2XlsParser jParser = new Json2XlsParser(text);
