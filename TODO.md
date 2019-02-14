@@ -14,4 +14,4 @@
 - [x] poi对部分函数的支持不完善ISERROR和VSLOOKUP等混合使用有问题(支持直接读取formula的cached结果)
 - [x] 百分比类型的单元格格式丢失了(支持单元格数据格式)
 - [x] heights和widths列表里的元素用换行分隔
-- [ ] xlsx转换的时候,comment报错
+- [ ] 转换xlsx的时候,comment报错

@@ -1,4 +1,4 @@
-package exMerge;
+package exMerge.parser;
 
 import com.fasterxml.jackson.core.util.DefaultIndenter;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;

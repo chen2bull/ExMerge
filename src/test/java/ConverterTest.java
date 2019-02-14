@@ -1,5 +1,5 @@
-import exMerge.Json2XlsParser;
-import exMerge.Xlsx2JsonParser;
+import exMerge.parser.Json2XlsParser;
+import exMerge.parser.Xlsx2JsonParser;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.junit.After;
 import org.junit.Before;
