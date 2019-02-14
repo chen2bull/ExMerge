@@ -12,8 +12,11 @@ public class XlsxConverter {
 
     @Test
     public void testAllExcels() throws Exception {
-        String pathName = "/media/sf_VirtualBoxShare/whatever/";
-        File folder = new File("/home/cmj/ttlz2/common/design/");
+        String pathName = "temp" + File.separator;
+        File outPath = new File(pathName);
+        outPath.mkdir();
+        String[] pathStrings = {"src", "test", "resources"};
+        File folder = new File(String.join(File.separator, pathStrings));
         File[] listOfFiles = folder.listFiles();
         if (listOfFiles == null) {
             throw new Exception("not working!");
