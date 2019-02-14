@@ -13,5 +13,5 @@
 - [x] 某些人喜欢用一些不存在的文件写到formula里,导致无法计算(支持直接读取formula的cached结果)
 - [x] poi对部分函数的支持不完善ISERROR和VSLOOKUP等混合使用有问题(支持直接读取formula的cached结果)
 - [x] 百分比类型的单元格格式丢失了(支持单元格数据格式)
-- [ ] heights和widths用合适的格式显示
+- [x] heights和widths列表里的元素用换行分隔
 - [ ] xlsx转换的时候,comment报错

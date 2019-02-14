@@ -1,6 +1,9 @@
 package exMerge;
 
+import com.fasterxml.jackson.core.util.DefaultIndenter;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import exMerge.bean.CellBean;
 import exMerge.bean.SheetMetaBean;
 import org.apache.poi.ss.usermodel.*;
@@ -72,6 +75,9 @@ abstract class Excel2JsonParser {
         StringBuilder sb = new StringBuilder();
         ObjectMapper mapper = new ObjectMapper();
         sb.append("[\n");
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        DefaultPrettyPrinter prettyPrinter = new DefaultPrettyPrinter();
+        prettyPrinter.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE);
         boolean isFirstSheet = true;
         for (Sheet sheet : wb) {
             if (!isFirstSheet) {
@@ -84,7 +90,7 @@ abstract class Excel2JsonParser {
             sb.append("\"");
             SheetMetaBean sheetMetaBean = new SheetMetaBean(sheet);
             sb.append(",\n\"meta\":");
-            sb.append(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(sheetMetaBean));
+            sb.append(mapper.writer(prettyPrinter).writeValueAsString(sheetMetaBean));
             sb.append(",\n\"content\":[");
             sb.append(calcSheetText(sheet));
             sb.append("]}");
