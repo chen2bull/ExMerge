@@ -1,0 +1,167 @@
+[
+{ "sheetName":"stage",
+"meta":{
+  "heights" : [
+    810,
+    270,
+    270,
+    270,
+    270,
+    270,
+    270,
+    270,
+    270,
+    270,
+    270,
+    270,
+    270,
+    270,
+    270,
+    270
+  ],
+  "widths" : [
+    4706,
+    8098,
+    9698,
+    7366,
+    7822,
+    3682
+  ]
+},
+"content":[[
+{"t":"STRING","v":"key#stage_id:int\n//关卡ID"},
+{"t":"STRING","v":"alias#stage_name:string\n//关卡名字"},
+{"t":"STRING","v":"pre_state:int\n[depend(stage.key),nullable]\n//前置关卡"},
+{"t":"STRING","v":"fix_rewards:list<IDCount>\n[default(金币|100 经验|100)]\n//固定奖励"},
+{"t":"STRING","v":"first_rewars:list<IDCount>\n[emptyable]\n//首次通关奖励"},
+{"t":"STRING","v":"pick:string\n%server\n// 额外抽取"}
+]
+,[
+{"t":"NUMERIC","v":"10101"},
+{"t":"STRING","v":"关卡1-1"},
+{"t":"BLANK","v":""},
+{"t":"BLANK","v":""},
+{"t":"STRING","v":"钻石|5"},
+{"t":"STRING","v":"装备抽取1"}
+]
+,[
+{"t":"NUMERIC","v":"10102"},
+{"t":"STRING","v":"关卡1-2"},
+{"t":"STRING","v":"关卡1-1"},
+{"t":"BLANK","v":""},
+{"t":"BLANK","v":""},
+{"t":"STRING","v":"装备抽取2"}
+]
+,[
+{"t":"NUMERIC","v":"10103"},
+{"t":"STRING","v":"关卡1-3"},
+{"t":"STRING","v":"关卡1-2"},
+{"t":"STRING","v":"金币|200 经验|200"},
+{"t":"STRING","v":"钻石|10"},
+{"t":"STRING","v":"装备抽取3"}
+]
+,[
+{"t":"NUMERIC","v":"10104"},
+{"t":"STRING","v":"关卡1-4"},
+{"t":"STRING","v":"关卡1-3"},
+{"t":"BLANK","v":""},
+{"t":"BLANK","v":""},
+{"t":"STRING","v":"装备抽取4"}
+]
+,[
+{"t":"NUMERIC","v":"10105"},
+{"t":"STRING","v":"关卡1-5"},
+{"t":"STRING","v":"关卡1-4"},
+{"t":"STRING","v":"金币|200 经验|200"},
+{"t":"STRING","v":"钻石|20"},
+{"t":"STRING","v":"装备抽取5"}
+]
+,[
+{"t":"NUMERIC","v":"10201"},
+{"t":"STRING","v":"关卡2-1"},
+{"t":"BLANK","v":""},
+{"t":"BLANK","v":""},
+{"t":"STRING","v":"钻石|5"},
+{"t":"STRING","v":"装备抽取6"}
+]
+,[
+{"t":"NUMERIC","v":"10202"},
+{"t":"STRING","v":"关卡2-2"},
+{"t":"STRING","v":"关卡2-1"},
+{"t":"BLANK","v":""},
+{"t":"BLANK","v":""},
+{"t":"STRING","v":"装备抽取7"}
+]
+,[
+{"t":"NUMERIC","v":"10203"},
+{"t":"STRING","v":"关卡2-3"},
+{"t":"STRING","v":"关卡2-2"},
+{"t":"STRING","v":"金币|200 经验|200"},
+{"t":"STRING","v":"钻石|10"},
+{"t":"STRING","v":"装备抽取8"}
+]
+,[
+{"t":"NUMERIC","v":"10204"},
+{"t":"STRING","v":"关卡2-4"},
+{"t":"STRING","v":"关卡2-3"},
+{"t":"BLANK","v":""},
+{"t":"BLANK","v":""},
+{"t":"STRING","v":"装备抽取9"}
+]
+,[
+{"t":"NUMERIC","v":"10205"},
+{"t":"STRING","v":"关卡2-5"},
+{"t":"STRING","v":"关卡2-4"},
+{"t":"STRING","v":"金币|200 经验|200"},
+{"t":"STRING","v":"钻石|20"},
+{"t":"STRING","v":"装备抽取10"}
+]
+,[
+{"t":"NUMERIC","v":"20101"},
+{"t":"STRING","v":"精英关卡1-1"},
+{"t":"STRING","v":"关卡1-1"},
+{"t":"STRING","v":"金币|200 经验|200"},
+{"t":"BLANK","v":""},
+{"t":"STRING","v":"装备抽取11"}
+]
+,[
+{"t":"NUMERIC","v":"20102"},
+{"t":"STRING","v":"精英关卡1-2"},
+{"t":"STRING","v":"关卡1-2"},
+{"t":"STRING","v":"金币|200 经验|200"},
+{"t":"STRING","v":"钻石|20"},
+{"t":"STRING","v":"装备抽取12"}
+]
+,[
+{"t":"NUMERIC","v":"20103"},
+{"t":"STRING","v":"精英关卡1-3"},
+{"t":"STRING","v":"关卡1-3"},
+{"t":"STRING","v":"金币|200 经验|200"},
+{"t":"STRING","v":"钻石|20"},
+{"t":"STRING","v":"装备抽取13"}
+]
+,[
+{"t":"NUMERIC","v":"20201"},
+{"t":"STRING","v":"精英关卡2-1"},
+{"t":"STRING","v":"关卡2-1"},
+{"t":"STRING","v":"金币|500 经验|400"},
+{"t":"BLANK","v":""},
+{"t":"STRING","v":"装备抽取14"}
+]
+,[
+{"t":"NUMERIC","v":"20202"},
+{"t":"STRING","v":"精英关卡2-2"},
+{"t":"STRING","v":"关卡2-2"},
+{"t":"STRING","v":"金币|500 经验|400"},
+{"t":"STRING","v":"钻石|20"},
+{"t":"STRING","v":"装备抽取15"}
+]
+,[
+{"t":"NUMERIC","v":"20203"},
+{"t":"STRING","v":"精英关卡2-3"},
+{"t":"STRING","v":"关卡2-3"},
+{"t":"STRING","v":"金币|500 经验|400"},
+{"t":"STRING","v":"钻石|20"},
+{"t":"STRING","v":"装备抽取16"}
+]
+]}]

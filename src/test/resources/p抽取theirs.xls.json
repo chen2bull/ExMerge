@@ -1,0 +1,80 @@
+[
+{ "sheetName":"pick#A功能",
+"meta":{
+  "heights" : [
+    810,
+    270,
+    270,
+    270,
+    270,
+    270,
+    270
+  ],
+  "widths" : [
+    8352,
+    6144,
+    17280,
+    4416,
+    6336,
+    10816
+  ]
+},
+"content":[[
+{"t":"STRING","v":"multi_line_key#id:int"},
+{"t":"STRING","v":"condition:string\n//条件"},
+{"t":"STRING","v":"weight_list:list<Pick>\n[depend(item.id)]\n//随机列表"},
+{"t":"STRING","v":"times:int\n[range(0,1000]]\n//随机多少次"},
+{"t":"STRING","v":"repeatable:bool\n[default(false)]\n// 随机列表是否允许重复"},
+{"t":"STRING","v":"extra_pick:list<int>\n[depend(pick.id),emptyable]\n//支持嵌套pick(必须在前面已经定义过)"}
+]
+,[
+{"t":"NUMERIC","v":"1001"},
+{"t":"STRING","v":"lv<30"},
+{"t":"STRING","v":"金创药(小)|100|10 魔法药水(小)|100|10 经验|100|10 金币|100|10"},
+{"t":"NUMERIC","v":"1"}
+]
+,[
+{"t":"BLANK","v":""},
+{"t":"STRING","v":"lv>=30 && lv<60"},
+{"t":"STRING","v":"金创药(中)|100|10 魔法药水(中)|100|10 经验|200|10 金币|1000|10"},
+{"t":"NUMERIC","v":"2"},
+{"t":"BOOLEAN","v":"FALSE"}
+]
+,[
+{"t":"BLANK","v":""},
+{"t":"STRING","v":"lv>=60"},
+{"t":"STRING","v":"金创药(大)|100|10 魔法药水(大)|100|10 经验|400|10 钻石|10|10"},
+{"t":"NUMERIC","v":"2"},
+{"t":"BOOLEAN","v":"TRUE"}
+]
+,[
+{"t":"NUMERIC","v":"1002"},
+{"t":"STRING","v":"职业==男"},
+{"t":"STRING","v":"张飞xxx|1|1"},
+{"t":"NUMERIC","v":"1"},
+{"t":"BLANK","v":""},
+{"t":"NUMERIC","v":"1001"}
+]
+,[
+{"t":"BLANK","v":""},
+{"t":"STRING","v":"职业==女"},
+{"t":"STRING","v":"赵云xxx|1|1"},
+{"t":"NUMERIC","v":"1"},
+{"t":"BLANK","v":""},
+{"t":"NUMERIC","v":"1001"}
+]
+,[
+{"t":"NUMERIC","v":"1003"},
+{"t":"STRING","v":"战力<10000"},
+{"t":"STRING","v":"金创药(中)|100|10 魔法药水(中)|100|10 经验|200|10 金币|1000|10"},
+{"t":"NUMERIC","v":"1"},
+{"t":"BOOLEAN","v":"TRUE"}
+]
+,[
+{"t":"BLANK","v":""},
+{"t":"STRING","v":"战力>10000"},
+{"t":"STRING","v":"金创药(中)|100|10 魔法药水(中)|100|10 经验|200|10 金币|1000|10"},
+{"t":"NUMERIC","v":"3"},
+{"t":"BOOLEAN","v":"FALSE"}
+]
+]}]
