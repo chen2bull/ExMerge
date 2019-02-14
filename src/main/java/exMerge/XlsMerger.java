@@ -8,7 +8,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 public class XlsMerger {
@@ -25,20 +24,17 @@ public class XlsMerger {
         String theirsText = new Xls2JsonParser(theirs, true).toJsonString();
         String mineText = new Xls2JsonParser(mine, true).toJsonString();
         try {
+            dmp.Match_Distance = 100000; // 没有博士学位的话很难看懂的
             LinkedList<diff_match_patch.Patch> minePatches = dmp.patch_make(baseText, mineText);
             LinkedList<diff_match_patch.Patch> theirsPatches = dmp.patch_make(baseText, theirsText);
 
-            System.out.println(minePatches);
-            System.out.println(theirsPatches);
             Object[] results = dmp.patch_apply(minePatches, baseText);
             String resultText = (String) results[0];
-            boolean[] resultBool = (boolean[]) results[1];
-            System.out.println(Arrays.toString(resultBool));
+//            boolean[] resultBool = (boolean[]) results[1];
             results = dmp.patch_apply(theirsPatches, resultText);
             resultText = (String) results[0];
             outputTextFile(merged+"_step1", resultText);
-            resultBool = (boolean[]) results[1];
-            System.out.println(Arrays.toString(resultBool));
+//            resultBool = (boolean[]) results[1];
             Json2XlsParser jParser = new Json2XlsParser(resultText);
             Workbook wb = jParser.toExcel();
             FileOutputStream fout = new FileOutputStream(merged);
@@ -55,7 +51,7 @@ public class XlsMerger {
         }
     }
 
-    public static boolean outputTempFile = true;
+    public static boolean outputTempFile = false;
 
     private static void outputTextFile(String merged, String resultText) throws IOException {
         if (!outputTempFile) {
