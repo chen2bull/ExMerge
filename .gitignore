@@ -25,6 +25,4 @@ hs_err_pid*
 # CMJ add
 .idea/workspace.xml
 target/
-*.xls
-*.xlsx
 temp/*.xls
