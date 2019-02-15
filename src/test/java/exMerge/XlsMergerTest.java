@@ -30,6 +30,7 @@ public class XlsMergerTest {
         }
         System.out.println(Arrays.toString(fileFullPaths));
         XlsMerger.outputTempFile = true;
-        XlsMerger.main(fileFullPaths);
+        int retCode = XlsMerger.main(fileFullPaths);
+        assertEquals(retCode, 0);
     }
 }

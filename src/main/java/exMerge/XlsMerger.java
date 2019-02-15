@@ -11,11 +11,12 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 public class XlsMerger {
-    public static void main(String[] args) throws Exception {
+    public static int main(String[] args) throws Exception {
         diff_match_patch dmp = new diff_match_patch();
         if (args.length != 4) {
             throw new Exception("wrong args length");
         }
+        System.err.println("start merge!");
         String base = args[0];
         String theirs = args[1];
         String mine = args[2];
@@ -43,12 +44,14 @@ public class XlsMerger {
             wb.close();
             outputTextFile(merged+"_step2", resultText);
         } catch (Exception e) {
+            System.err.println("自动合并失败,请手动合并");
             throw new Exception("自动合并失败,请手动合并", e);
         } finally {
             outputTextFile(base, baseText);
             outputTextFile(theirs, theirsText);
             outputTextFile(mine, mineText);
         }
+        return 0;
     }
 
     public static boolean outputTempFile = false;
