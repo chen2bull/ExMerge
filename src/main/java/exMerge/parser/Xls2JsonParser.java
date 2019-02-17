@@ -15,6 +15,8 @@ public class Xls2JsonParser extends Excel2JsonParser {
     public String toJsonString() throws Exception {
         FileInputStream fin = new FileInputStream(this.fileName);
         try (Workbook wb = new HSSFWorkbook(fin)) {
+            fin.close();
+            wb.close();
             return calcJsonString(wb);
         }
     }
